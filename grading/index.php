@@ -15,7 +15,7 @@
     <nav>
         <a href="#home">Home</a>
         <a href="https://arsiun.edu.et/">About us</a>
-        <a href="Admin/index.php">Administrator</a>
+        <a href="Admin/head.php">Administrator</a>
         <a href="scheduling/index.php">Scheduling</a>
         <a href="exam/index.php">Exam</a>
 

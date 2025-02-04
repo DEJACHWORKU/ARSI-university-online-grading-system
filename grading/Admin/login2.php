@@ -48,8 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin-submit'])) {
             // Verify the password
             if (password_verify($signin_password, $hashed_password)) {
                 $_SESSION['signin_success_message'] = "Signin successful! Welcome back.";
-                header("Location: admin.php"); // Redirect to admin dashboard
-                exit(); // Ensure script stops executing after redirection
+                header("Location: head.php"); 
+                exit(); 
             } else {
                 $signin_password_error = "Incorrect password.";
             }
