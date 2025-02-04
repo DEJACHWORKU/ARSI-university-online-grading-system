@@ -2,7 +2,7 @@
 session_start();
 // Check if the user is logged in, otherwise redirect to signin
 if (!isset($_SESSION['signin_success_message'])) {
-    header("Location: login/login2.php");
+    header("Location: login2.php");
     exit();
 }
 

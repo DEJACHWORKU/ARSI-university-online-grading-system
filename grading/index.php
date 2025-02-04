@@ -15,17 +15,17 @@
     <nav>
         <a href="#home">Home</a>
         <a href="https://arsiun.edu.et/">About us</a>
-        <a href="admin.php">Administrator</a>
+        <a href="Admin/index.php">Administrator</a>
         <a href="scheduling/index.php">Scheduling</a>
         <a href="exam/index.php">Exam</a>
 
         <div class="dropdown">
             <a href="#login" id="login-dropdown">Login <i class="fas fa-caret-down"></i></a>
             <div class="dropdown-content" id="login-menu">
-                <a href="Head.php">Department Head</a>
-                <a href="Teacher.php">Teacher</a>
-                <a href="login.php">Student</a>
-                <a href="login.php">Registrar</a>
+                <a href="Login/login1.php">Department Head</a>
+                <a href="Login/login3.php">Teacher</a>
+                <a href="Login/login.php">Student</a>
+                <a href="Login/login.php">Registrar</a>
             </div>
         </div>
 
