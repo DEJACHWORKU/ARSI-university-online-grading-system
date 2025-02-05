@@ -1,8 +1,8 @@
 <?php
 session_start();
-// Check if the user is logged in, otherwise redirect to signin
+
 if (!isset($_SESSION['signin_success_message'])) {
-    header("Location: login2.php");
+    header("Location: login3.php");
     exit();
 }
 
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrator Dashboard</title>
-    <link rel="stylesheet" href="style/admin.css">
+    <link rel="stylesheet" href="style/teacher.css">
 </head>
 <body>
     <div class="sidebar">
@@ -45,14 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button class="edit-button" onclick="document.getElementById('dashboardProfilePictureInput').click();">Upload</button>
             <button class="save-button" onclick="saveDashboardProfile()">Save</button>
         </div>
-        <h2>Admin Dashboard</h2>
-        <div class="create-user">Create User Account</div>
-        <div class="add-user"><a href="signup.php">Add Administrator</a></div>
-        <div class="add-user" onclick="showForm('Department Head')"><a href="javascript:void(0)">Add Department Head</a></div>
-        <div class="add-user" onclick="showForm('Teacher')"><a href="javascript:void(0)">Add Teacher</a></div>
-        <div class="add-user" onclick="showForm('Registrar')"><a href="javascript:void(0)">Add Registrar</a></div>
-        <div class="add-user"><a href="#">Give permission</a></div>
-        <div class="add-user"><a href="#">View Users</a></div>
+        <h2>stud't dashboard</h2>
+        <div class="create-user">track your gade</div>
+        <div class="add-user"><a href="signup.php">view result</a></div>
+        <div class="add-user"><a href="#">provied complain</a></div>
+        <div class="add-user"><a href="#">view cmulative g.p.a</a></div>
         <div class="settings">System Settings</div>
         <div class="theme-switch">
             <div class="theme-toggle" onclick="toggleTheme('light')">
@@ -68,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div class="content">
         <div class="header">
-            <h3>Welcome to the Administrator Dashboard</h3>
+            <h3>WELL TO STUDENT DASHBOARD</h3>
             <p>Select an option from the sidebar to get started.</p>
         </div>
         <div class="form-container" id="userFormContainer" style="display: none;">

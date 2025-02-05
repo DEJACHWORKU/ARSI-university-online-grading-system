@@ -1,19 +1,6 @@
 <?php
 session_start();
 
-$servername = "localhost"; 
-$username = "root"; 
-$password = ''; 
-$dbname = "user_management"; 
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $signin_email_error = $signin_password_error = "";
 $signin_success_message = "";
 
@@ -36,31 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin-submit'])) {
 
     // If no errors, proceed with signin
     if (empty($signin_email_error) && empty($signin_password_error)) {
-        $stmt = $conn->prepare("SELECT password FROM user_accounts WHERE email = ?");
-        $stmt->bind_param("s", $signin_email);
-        $stmt->execute();
-        $stmt->store_result();
-        
-        // Check if the user exists
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($hashed_password);
-            $stmt->fetch();
-            // Verify the password
-            if (password_verify($signin_password, $hashed_password)) {
-                $_SESSION['signin_success_message'] = "Signin successful! Welcome back.";
-                header("Location: admin.php"); 
-                exit(); 
-            } else {
-                $signin_password_error = "Incorrect password.";
-            }
+        // Simulate a user check (replace this with actual user verification logic)
+        if ($signin_email === "user@example.com" && $signin_password === "password123") {
+            $signin_success_message = "Signin successful! Welcome back.";
+            header("Location: teacher.php"); 
         } else {
-            $signin_email_error = "No account found with that email.";
+            $signin_password_error = "Incorrect email or password.";
         }
-        $stmt->close();
     }
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -70,10 +41,12 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signin Form</title>
     <link rel="stylesheet" href="style/login.css">
+    <script src="style/script.js"></script>
 </head>
 <body>
 
 <div class="container">
+
     <div id="signin" class="form">
         <h2>Login Page</h2>
         <form method="POST" action="">

@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin-submit'])) {
         // Simulate a user check (replace this with actual user verification logic)
         if ($signin_email === "user@example.com" && $signin_password === "password123") {
             $signin_success_message = "Signin successful! Welcome back.";
+            header("Location: student.php"); 
         } else {
             $signin_password_error = "Incorrect email or password.";
         }
