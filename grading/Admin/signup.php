@@ -4,7 +4,7 @@ session_start();
 $servername = "localhost"; 
 $username = "root"; 
 $password = ''; 
-$dbname = "user_management"; 
+$dbname = "Grade_management"; 
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup-submit'])) {
         $signup_email_error = "Invalid email format.";
     } else {
         // Check if email already exists
-        $stmt = $conn->prepare("SELECT email FROM user_accounts WHERE email = ?");
+        $stmt = $conn->prepare("SELECT email FROM Administrator WHERE email = ?");
         $stmt->bind_param("s", $signup_email);
         $stmt->execute();
         $stmt->store_result();
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup-submit'])) {
     if (empty($signup_email_error) && empty($signup_password_error) && empty($signup_confirm_password_error)) {
         // Hash the password before storing
         $hashed_password = password_hash($signup_password, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("INSERT INTO user_accounts (email, password) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO Administrator (email, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $signup_email, $hashed_password);
         if ($stmt->execute()) {
             $_SESSION['signup_success_message'] = "Signup successful!";
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin-submit'])) {
 
     // If no errors, proceed with signin
     if (empty($signin_email_error) && empty($signin_password_error)) {
-        $stmt = $conn->prepare("SELECT password FROM user_accounts WHERE email = ?");
+        $stmt = $conn->prepare("SELECT password FROM Administrator WHERE email = ?");
         $stmt->bind_param("s", $signin_email);
         $stmt->execute();
         $stmt->store_result();

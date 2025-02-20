@@ -1,6 +1,25 @@
 <?php
 session_start();
 
+$host = 'localhost';
+$db = 'Grade_management';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false,
+];
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (\PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
 if (!isset($_SESSION['signin_success_message'])) {
     header("Location: login2.php");
     exit();
@@ -8,6 +27,9 @@ if (!isset($_SESSION['signin_success_message'])) {
 
 $errors = [];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["description"]) || !preg_match("/^[a-zA-Z\s]+$/", $_POST["description"])) {
+        $errors['description'] = "User description is required and must contain only letters and spaces.";
+    }
     if (empty($_POST["firstName"]) || !preg_match("/^[a-zA-Z]+$/", $_POST["firstName"])) {
         $errors['firstName'] = "First name is required and must contain only letters.";
     }
@@ -23,8 +45,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["email"]) || !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "A valid email is required.";
     }
-    if (empty($_POST["password"]) || strlen($_POST["password"]) < 6) {
-        $errors['password'] = "Password must be at least 6 characters.";
+    if (empty($_POST["password"]) || !preg_match("/^[\w!@#$%^&*()+=-]+$/", $_POST["password"]) || strlen($_POST["password"]) < 6) {
+        $errors['password'] = "Password must be at least 6 characters and can include letters, numbers, and special characters.";
+    }
+    if (empty($_POST["address"]) || !preg_match("/^[a-zA-Z0-9\s.,]+$/", $_POST["address"])) {
+        $errors['address'] = "Address is required and can include letters, numbers, dots, and commas.";
+    }
+
+    // Handle file upload
+    $profilePicture = '';
+    if (isset($_FILES['profilePictureInput']) && $_FILES['profilePictureInput']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['profilePictureInput']['tmp_name'];
+        $fileName = $_FILES['profilePictureInput']['name'];
+        $uploadFileDir = './uploaded_files/';
+        $dest_path = $uploadFileDir . basename($fileName);
+
+        if (move_uploaded_file($fileTmpPath, $dest_path)) {
+            $profilePicture = $dest_path; // Save the path to the database
+        } else {
+            $errors['profilePicture'] = "Error moving the uploaded file.";
+        }
+    }
+
+    if (empty($errors)) {
+        $firstName = $_POST['firstName'];
+        $middleName = $_POST['middleName'];
+        $lastName = $_POST['lastName'];
+        $sex = $_POST['sex'];
+        $role = $_POST['role'];
+        $phone = $_POST['phone'];
+        $address = $_POST['address'];
+        $email = $_POST['email'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $description = $_POST['description']; // User description
+
+        $stmt = $pdo->prepare("INSERT INTO higher_user (first_name, middle_name, last_name, sex, role, phone, address, email, password, user_description, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        
+        if ($stmt->execute([$firstName, $middleName, $lastName, $sex, $role, $phone, $address, $email, $password, $description, $profilePicture])) {
+            echo "User created successfully!";
+        } else {
+            echo "Error creating user.";
+        }
     }
 }
 ?>
@@ -64,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="switch" id="themeSwitchDark"></div>
             </div>
         </div>
-        <a href="logout.php" class="logout-button">Logout</a> <!-- Updated logout link -->
+        <a href="/grading/logout.php" class="logout-button">Logout</a> <!-- Logout Button -->
     </div>
     <div class="content">
         <div class="header">
@@ -73,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="form-container" id="userFormContainer" style="display: none;">
             <div class="profile-section">
-                <input type="file" id="profilePictureInput" style="display: none;" accept="image/*" onchange="loadProfilePicture(event)">
+                <input type="file" id="profilePictureInput" name="profilePictureInput" style="display: none;" accept="image/*" onchange="loadProfilePicture(event)">
                 <div class="profile-picture-holder" onclick="document.getElementById('profilePictureInput').click();">
                     <img id="adminProfilePicture" src="default-profile.png" alt="" class="form-profile-image">
                 </div>
@@ -82,10 +143,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <button class="save-zz" onclick="saveProfile()">Save Profile</button>
                 </div>
             </div>
-            <form id="userForm" method="post" action="">
+            <form id="userForm" method="post" action="" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-field">
+                        <label for="user">USER DESCRIPTION</label>
                         <input type="text" id="description" name="description" placeholder="User description..." required>
+                        <?php if (isset($errors['description'])): ?>
+                            <span class="error" id="errorDescription"><?php echo $errors['description']; ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="form-row">
@@ -141,6 +206,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-field">
                         <label for="address">Address</label>
                         <input type="text" id="address" name="address" placeholder="Enter Address" required>
+                        <?php if (isset($errors['address'])): ?>
+                            <span class="error" id="errorAddress"><?php echo $errors['address']; ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="form-row">

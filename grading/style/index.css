@@ -32,7 +32,7 @@ nav {
     padding: 0;
     display: flex;
     justify-content: flex-end;
-    align-items: center;  /* Center items vertically */
+    align-items: center;  
     flex-wrap: wrap;
 }
 
@@ -308,6 +308,18 @@ footer {
 
 .read-more:hover {
     background-color: darkred;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1200px) {
+    .home-message {
+        flex-direction: column; /* Stack elements vertically */
+    }
+    
+    .text-section, .image-slider {
+        max-width: 100%; /* Full width on smaller screens */
+        margin: 10px 0; /* Margin for spacing */
+    }
 }
 
 @media (max-width: 600px) {

@@ -4,7 +4,7 @@ session_start();
 $servername = "localhost"; 
 $username = "root"; 
 $password = ''; 
-$dbname = "user_management"; 
+$dbname = "Grade_management"; 
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signin-submit'])) {
 
     // If no errors, proceed with signin
     if (empty($signin_email_error) && empty($signin_password_error)) {
-        $stmt = $conn->prepare("SELECT password FROM user_accounts WHERE email = ?");
+        $stmt = $conn->prepare("SELECT password FROM Administrator WHERE email = ?");
         $stmt->bind_param("s", $signin_email);
         $stmt->execute();
         $stmt->store_result();

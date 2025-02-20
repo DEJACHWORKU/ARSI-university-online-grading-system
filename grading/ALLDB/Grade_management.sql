@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2024 at 07:45 PM
+-- Generation Time: Feb 20, 2025 at 06:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,36 +18,37 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `user_management`
+-- Database: `grade_management`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_accounts`
+-- Table structure for table `administrator`
 --
 
-CREATE TABLE `user_accounts` (
+CREATE TABLE `administrator` (
   `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `email` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user_accounts`
+-- Dumping data for table `administrator`
 --
 
-INSERT INTO `user_accounts` (`id`, `email`, `password`) VALUES
-(16, 'dagiman2116@gmail.com', '$2y$10$pxSSqJCjCjgL/15ynn62f.O1q51FRPKCExXX7dahZUxyQs.LPGE26');
+INSERT INTO `administrator` (`id`, `email`, `password`) VALUES
+(1, 'dagiman2116@gmail.com', '$2y$10$iLUMxQPwdk37bC1FSp1FZeK8h8Lb996pQ6klHFLPf89kqu8W.MLq2'),
+(2, 'dagiman@gmail.com', '$2y$10$Npg2FgSPGQpN8leeiKS7TeV6eUePl.j//k4XuIs6u5scHSKdpDhIW');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `user_accounts`
+-- Indexes for table `administrator`
 --
-ALTER TABLE `user_accounts`
+ALTER TABLE `administrator`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -55,10 +56,10 @@ ALTER TABLE `user_accounts`
 --
 
 --
--- AUTO_INCREMENT for table `user_accounts`
+-- AUTO_INCREMENT for table `administrator`
 --
-ALTER TABLE `user_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+ALTER TABLE `administrator`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
