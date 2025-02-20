@@ -5,36 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARSI University Online Student Grading System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/index.css"> 
+
 </head>
 <body>
     <header>
         <img src="image/logo.png" alt="ARSI University Logo" class="logo">
-        <h1>ARSI UNIVERSITY ONLINE STUDENT GRADING SYSTEM</h1>
+        <h1>ARSI UNIVERSITY ONLINE STUDENT GRADE MANAGEMENT SYSTEM</h1>
     </header>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="https://arsiun.edu.et/">About us</a>
-        <a href="Admin/admin.php">Administrator</a>
-        <a href="scheduling/index.php">Scheduling</a>
-        <a href="exam/index.php">Exam</a>
-
+    
+    <nav id="navbar">
+        <a href="#home">Home <i class="fas fa-home"></i></a>
+        <a href="https://arsiun.edu.et/">About us <i class="fas fa-info-circle"></i></a>
+        <a href="services/index.php">User Help <i class="fas fa-chalkboard-teacher"></i></a>
+        <a href="scheduling/index.php">Notification <i class="fas fa-bell"></i></a>
         <div class="dropdown">
-            <a href="#login" id="login-dropdown">Login <i class="fas fa-caret-down"></i></a>
+            <a href="#login" id="login-dropdown">Login <i class="fas fa-user-lock"></i> <i class="fas fa-caret-down"></i></a>
             <div class="dropdown-content" id="login-menu">
-                <a href="Head/head.php">Department Head</a>
-                <a href="Teacher/teacher.php">Teacher</a>
-                <a href="Student/student.php">Student</a>
-                <a href="Registeral/registerar.php">Registrar</a>
+                <a href="Admin/admin.php">Administrator <i class="fas fa-user-cog"></i></a>
+                <a href="Head/head.php">Dept Head   <i class="fas fa-user"></i></a>
+                <a href="Teacher/teacher.php">Teacher <i class="fas fa-chalkboard-teacher"></i></a>
+                <a href="Student/student.php">Student <i class="fas fa-user-graduate"></i></a>
+                <a href="Registeral/registerar.php">Registrar <i class="fas fa-user-tag"></i></a>
+              
             </div>
         </div>
-
-        <a href="#notifications" class="notification-icon" id="notification"><i class="fas fa-bell"></i></a>
+        <a href="#help" class="help-icon"><i class="fas fa-hand-point-left"></i></a> <!-- Finger clickable icon -->
     </nav>
 
     <div class="home-message">
         <div class="text-section">
-            <h2>Welcome to ARSI University! <br> ONLINE STUDENT GRADING SYSTEM</h2>
+            <h2>Welcome to ARSI University! <br> STUDENT GRADING MANAGEMENT SYSTEM</h2>
             <pre>
 At ARSI University, we are dedicated to providing a comprehensive online grading system that enhances the educational experience for students, teachers, and administrators alike. Our platform is designed to facilitate seamless communication and efficient management of academic records.
 
@@ -46,29 +47,29 @@ Administrators maintain oversight of the entire academic process, ensuring trans
 
 Join us in revolutionizing education with our user-friendly system that prioritizes accessibility and engagement. We are committed to fostering an inclusive learning environment where every student can thrive academically and personally.
             </pre>
-            <a href="#more" class="read-more">Read More</a>
+            <a href="readmore.php" class="read-more">Read More</a>
         </div>
         <div class="image-slider">
             <div class="slides">
                 <div class="slide">
-                    <img src="image/D1.jpg" alt="Image 1">
-                    <div class="overlay">Image 1 Description</div>
+                    <img src="image/1.jpg" alt="Image 1">
+                    <div class="overlay">ARSI university Grade Management</div>
                 </div>
                 <div class="slide">
-                    <img src="image/D2.jpg" alt="Image 2">
-                    <div class="overlay">Image 2 Description</div>
+                    <img src="image/2.jpg" alt="Image 2">
+                    <div class="overlay">User friendly student grade management system</div>
                 </div>
                 <div class="slide">
-                    <img src="image/D3.jpg" alt="Image 3">
-                    <div class="overlay">Image 3 Description</div>
+                    <img src="image/3.jpg" alt="Image 3">
+                    <div class="overlay">Easily access student information.</div>
                 </div>
                 <div class="slide">
-                    <img src="image/D4.jpg" alt="Image 4">
-                    <div class="overlay">Image 4 Description</div>
+                    <img src="image/4.jpg" alt="Image 4">
+                    <div class="overlay">Data security and privacy on student grades</div>
                 </div>
                 <div class="slide">
-                    <img src="image/rsi.jpg" alt="Image 5">
-                    <div class="overlay">Image 5 Description</div>
+                    <img src="image/5.jpg" alt="Image 5">
+                    <div class="overlay">Easily generate grade reports in digital system</div>
                 </div>
             </div>
             <button class="nav-button left" onclick="moveSlide(-1)">&#10094;</button>
@@ -103,43 +104,7 @@ Join us in revolutionizing education with our user-friendly system that prioriti
             <p>&copy; 2025 ARSI University. All rights reserved.</p>
         </div>
     </footer>
-
     <script>
-        // Student Dropdown Functionality
-        const studentDropdown = document.getElementById('student-dropdown');
-        const dropdownMenu = document.getElementById('dropdown-menu');
-
-        if (studentDropdown) {
-            studentDropdown.addEventListener('click', (event) => {
-                event.preventDefault();
-                dropdownMenu.classList.toggle('show');
-            });
-
-            window.addEventListener('click', (event) => {
-                if (!studentDropdown.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.classList.remove('show');
-                    const naturalMenu = document.getElementById('natural-menu');
-                    if (naturalMenu) {
-                        naturalMenu.classList.remove('show');
-                    }
-                }
-            });
-        }
-
-        const naturalDropdown = document.getElementById('natural-dropdown');
-        const naturalMenu = document.getElementById('natural-menu');
-
-        if (naturalDropdown) {
-            naturalDropdown.addEventListener('click', (event) => {
-                event.preventDefault();
-                naturalMenu.classList.toggle('show'); 
-            });
-        }
-
-        function keepDropdownOpen(event) {
-            event.stopPropagation(); 
-        }
-
         // Login Dropdown Functionality
         const loginDropdown = document.getElementById('login-dropdown');
         const loginMenu = document.getElementById('login-menu');
@@ -155,6 +120,7 @@ Join us in revolutionizing education with our user-friendly system that prioriti
             }
         });
 
+        // Image Slider Functionality
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
@@ -175,6 +141,7 @@ Join us in revolutionizing education with our user-friendly system that prioriti
 
         showSlide(currentSlideIndex); 
 
+        // Adjust section layout based on screen size
         function adjustTextSection() {
             const textSection = document.querySelector('.text-section');
             const imageSlider = document.querySelector('.image-slider');
@@ -197,7 +164,7 @@ Join us in revolutionizing education with our user-friendly system that prioriti
         }
 
         window.addEventListener('resize', adjustTextSection);
-        window.addEventListener('load', adjustTextSection); 
+        window.addEventListener('load', adjustTextSection);
     </script>
 </body>
 </html>
